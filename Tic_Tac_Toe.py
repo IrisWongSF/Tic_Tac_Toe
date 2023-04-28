@@ -5,7 +5,6 @@ pygame.init()
 
 def main():
     # Set up game
-
     WHITE = (255, 255, 255)
     WIN_WIDTH = 300
     WIN_HEIGHT = 300
@@ -13,6 +12,7 @@ def main():
     WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
 
     pygame.display.set_caption("TIC TAC TOE")
+
     # Load The images
     Cross = pygame.image.load("Cross.png")
     Cross = pygame.transform.scale(Cross, (50, 50))
@@ -23,6 +23,7 @@ def main():
     board = []
     pos = []
     turn = 'X'
+
 
     def draw_grid():
         # Draw grid function, setup grid on the screen
@@ -68,13 +69,15 @@ def main():
                     WIN.blit(pic, (cell_x, cell_y))
 
                     pygame.display.flip()
+
                     #check_winning_condition(board)
                     if check_winning_condition(board) or check_draw(board):
                         msg = ''
                         if check_winning_condition(board):
-                            msg = f"The winner is {turn}"
+                            msg = "The winner is "+ turn
                         else:
                             msg = "Draw !"
+
                         font = pygame.font.Font(None, 36)
                         message = font.render(msg, True, (255, 255, 255), (0, 0, 0))
                         message_rect = message.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 2))
@@ -82,14 +85,13 @@ def main():
                         # create a new window for the message
                         message_window = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
                         pygame.display.set_caption("Winner!")
+
                         # display the message and wait for the user to close the window
                         message_window.fill((0, 0, 0))
                         message_window.blit(message, message_rect)
                         pygame.display.flip()
-                        while True:
-                            for event in pygame.event.get():
-                                if event.type == pygame.QUIT:
-                                    pygame.quit()
+
+
 
                         break
 
@@ -136,14 +138,14 @@ def check_pos(cell_x, cell_y):
 
 
 def check_winning_condition(list):
-    if ((((list[0][0] == list[0][1] == list[0][2])) and list[0][0] != 0)
-            | (((list[1][0] == list[1][1] == list[1][2])) and list[1][0] != 0)
-            | (((list[2][0] == list[2][1] == list[2][2])) and list[2][0] != 0)
-            | (((list[0][0] == list[1][0] == list[2][0])) and list[0][0] != 0)
-            | (((list[0][1] == list[1][1] == list[2][1])) and list[0][1] != 0)
-            | (((list[0][2] == list[1][2] == list[2][2])) and list[0][2] != 0)
-            | (((list[0][0] == list[1][1] == list[2][2])) and list[0][0] != 0)
-            | (((list[0][2] == list[1][1] == list[2][0])) and list[0][2] != 0)):
+    if (((list[0][0] == list[0][1] == list[0][2]) and list[0][0] != 0)
+            or ((list[1][0] == list[1][1] == list[1][2]) and list[1][0] != 0)
+            or ((list[2][0] == list[2][1] == list[2][2]) and list[2][0] != 0)
+            or ((list[0][0] == list[1][0] == list[2][0]) and list[0][0] != 0)
+            or ((list[0][1] == list[1][1] == list[2][1]) and list[0][1] != 0)
+            or ((list[0][2] == list[1][2] == list[2][2]) and list[0][2] != 0)
+            or ((list[0][0] == list[1][1] == list[2][2]) and list[0][0] != 0)
+            or ((list[0][2] == list[1][1] == list[2][0]) and list[0][2] != 0)):
         return True
     return False
 
