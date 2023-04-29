@@ -24,7 +24,6 @@ def main():
     pos = []
     turn = 'X'
 
-
     def draw_grid():
         # Draw grid function, setup grid on the screen
         grid_colour = (50, 50, 50)
@@ -40,7 +39,6 @@ def main():
         board.append(row)
 
     run = True
-    clicked = False
     draw_grid()
 
     while run:
@@ -70,28 +68,21 @@ def main():
 
                     pygame.display.flip()
 
-                    #check_winning_condition(board)
                     if check_winning_condition(board) or check_draw(board):
                         msg = ''
                         if check_winning_condition(board):
-                            msg = "The winner is "+ turn
+                            msg = "The winner is " + turn
                         else:
                             msg = "Draw !"
 
                         font = pygame.font.Font(None, 36)
                         message = font.render(msg, True, (255, 255, 255), (0, 0, 0))
                         message_rect = message.get_rect(center=(WIN_WIDTH / 2, WIN_HEIGHT / 2))
-
-                        # create a new window for the message
                         message_window = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
                         pygame.display.set_caption("Winner!")
-
-                        # display the message and wait for the user to close the window
                         message_window.fill((0, 0, 0))
                         message_window.blit(message, message_rect)
                         pygame.display.flip()
-
-
 
                         break
 
@@ -137,21 +128,21 @@ def check_pos(cell_x, cell_y):
     return cell_x, cell_y
 
 
-def check_winning_condition(list):
-    if (((list[0][0] == list[0][1] == list[0][2]) and list[0][0] != 0)
-            or ((list[1][0] == list[1][1] == list[1][2]) and list[1][0] != 0)
-            or ((list[2][0] == list[2][1] == list[2][2]) and list[2][0] != 0)
-            or ((list[0][0] == list[1][0] == list[2][0]) and list[0][0] != 0)
-            or ((list[0][1] == list[1][1] == list[2][1]) and list[0][1] != 0)
-            or ((list[0][2] == list[1][2] == list[2][2]) and list[0][2] != 0)
-            or ((list[0][0] == list[1][1] == list[2][2]) and list[0][0] != 0)
-            or ((list[0][2] == list[1][1] == list[2][0]) and list[0][2] != 0)):
+def check_winning_condition(board):
+    if (((board[0][0] == board[0][1] == board[0][2]) and board[0][0] != 0)
+            or ((board[1][0] == board[1][1] == board[1][2]) and board[1][0] != 0)
+            or ((board[2][0] == board[2][1] == board[2][2]) and board[2][0] != 0)
+            or ((board[0][0] == board[1][0] == board[2][0]) and board[0][0] != 0)
+            or ((board[0][1] == board[1][1] == board[2][1]) and board[0][1] != 0)
+            or ((board[0][2] == board[1][2] == board[2][2]) and board[0][2] != 0)
+            or ((board[0][0] == board[1][1] == board[2][2]) and board[0][0] != 0)
+            or ((board[0][2] == board[1][1] == board[2][0]) and board[0][2] != 0)):
         return True
     return False
 
 
-def check_draw(list):
-    return (0 not in list[0]) and (0 not in list[1]) and (0 not in list[2])
+def check_draw(board):
+    return (0 not in board[0]) and (0 not in board[1]) and (0 not in board[2])
 
 
 if __name__ == "__main__":
